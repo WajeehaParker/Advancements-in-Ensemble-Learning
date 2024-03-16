@@ -33,7 +33,7 @@ def mainProgram():
     params = {
         'numOfRuns': 1,
         'numOfFolds': 1,
-        'classifiers': ['ANN'], #, 'KNN', 'DT', 'DISCR', 'NB', 'SVM'],
+        'classifiers': ['KNN'], #, 'ANN', 'DT', 'DISCR', 'NB', 'SVM'],
         'trainFunctionANN': ['trainlm'], #, 'trainbfg', 'trainrp', 'trainscg', 'traincgb', 'traincgf', 'traincgp', 'trainoss', 'traingdx'],
         'trainFunctionDiscriminant': ['pseudoLinear'], #, 'pseudoQuadratic'],
         'kernelFunctionSVM': ['gaussian'], #, 'polynomial', 'linear']
@@ -42,7 +42,7 @@ def mainProgram():
     #with Pool(os.cpu_count()) as pool:
     #    pool.map(partial(run_problem, params=params), problem)
 
-    run_problem('iris', params)
+    run_problem('breast-cancer', params)
 
 if __name__ == "__main__":
     mainProgram()

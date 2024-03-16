@@ -1,4 +1,5 @@
 from getNNPredict import getNNPredict
+import numpy as np
 
 def psoPredict(classifiers, testData):
     X = testData[:, :-1]

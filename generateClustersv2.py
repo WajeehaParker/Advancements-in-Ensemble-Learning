@@ -6,8 +6,8 @@ def generateClustersv2(train, params):
     print("Generating Clusters")
     totalClusters = 0
     genClusters = []
-    noOfClusters = round(np.power(len(train[:, -1]), 1/5))
-    
+    noOfClusters = round(np.power(len(train[:, -1]), 1/5)) 
+    print(noOfClusters)
     for clusters in range(1, noOfClusters + 1):
         scaler = StandardScaler()
         scaled_data = scaler.fit_transform(train[:, :-1])

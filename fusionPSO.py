@@ -31,11 +31,11 @@ def fusionPSO(classifiers, testData):
         except Exception as ME:
             print('in PSO FUSION')
             continue
-
+        
     decisionMatrix = np.ones((len(testData[:, 0]), len(tempPredict)))
-
     for j in range(len(tempPredict)):
         decisionMatrix[:, j] = tempPredict[j]
-
     fusion = mode(decisionMatrix, axis=1)[0]
+    print("fusion: ")
+    print(fusion)
     return fusion

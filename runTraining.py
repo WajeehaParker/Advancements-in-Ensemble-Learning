@@ -41,7 +41,8 @@ def runTraining(p_name, params):
     valy = valData[:, -1]
 
     allClusters = generateClustersv2(np.column_stack((trainX, trainy)), params)
-
+    print("allClusters")
+    print(allClusters)
     bestClusters = clusteringPSO(allClusters, np.column_stack((valX, valy)), params)
     bestClusters = np.flatnonzero(bestClusters['chromosome'])
     selectedClusters = [allClusters[i] for i in bestClusters]

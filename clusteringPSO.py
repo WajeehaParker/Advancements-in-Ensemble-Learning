@@ -19,16 +19,23 @@ def clusteringPSO(allClusters, testData, params):
 
     try:
         allPredictions = np.zeros((len(testData[:, -1]), len(allClusters)))
-        
+
         for j in range(len(allClusters)):
             all = []
             params['classifiers'] = ['SVM']
             all = trainClassifiers(allClusters[j][:, :-1], allClusters[j][:, -1], testData[:, :-1], testData[:, -1], params)
-            allPredictions[:, j] = fusionPSO(all, testData)
+            print("j: "+str(j))
+            allPredictions[:, j] = fusionPSO(all, testData).flatten()
+
+            print("allPredictions:")
+            print(allPredictions) 
 
         lb = np.zeros(len(allPredictions))
+        print("lb: ",lb)
         ub = np.ones(len(allPredictions))
+        print("ub: ",ub)
         best, fval = pso(PSOAF, lb, ub, swarmsize=50)
+        print("best: ",best)
         
         obj = {
             'chromosome': np.round(best),
