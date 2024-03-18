@@ -21,11 +21,9 @@ def trainClassifiers(X, y, valX, valy, params):
                 classifiers.append({'name': 'KNN', 'model': model})
                 index += 1
             elif learner == 'SVM':
-                print("training SVM")
                 model = trainSVM(X, y, valX, valy)
                 classifiers.append(model)
                 index += 1
-                print("training complete")
             elif learner == 'NB':
                 model = GaussianNB()
                 model.fit(X, y)

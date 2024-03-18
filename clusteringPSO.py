@@ -12,7 +12,7 @@ def clusteringPSO(allClusters, testData, params):
         decisionMatrix = np.ones((len(testData[:, -1]), len(c)))
         for i in range(len(c)):
             decisionMatrix[:, i] = allPredictions[:, c[i]]
-        
+
         decisionMatrix = mode(decisionMatrix, axis=1)[0]
         error = np.mean(decisionMatrix != testData[:, -1])
         return error
@@ -24,18 +24,13 @@ def clusteringPSO(allClusters, testData, params):
             all = []
             params['classifiers'] = ['SVM']
             all = trainClassifiers(allClusters[j][:, :-1], allClusters[j][:, -1], testData[:, :-1], testData[:, -1], params)
-            print("j: "+str(j))
             allPredictions[:, j] = fusionPSO(all, testData).flatten()
 
-            print("allPredictions:")
-            print(allPredictions) 
-
-        lb = np.zeros(len(allPredictions))
-        print("lb: ",lb)
-        ub = np.ones(len(allPredictions))
-        print("ub: ",ub)
+        #change
+        lb = np.zeros(allPredictions.shape[1])
+        ub = np.ones(allPredictions.shape[1])
+        #change end
         best, fval = pso(PSOAF, lb, ub, swarmsize=50)
-        print("best: ",best)
         
         obj = {
             'chromosome': np.round(best),

@@ -41,10 +41,9 @@ def runTraining(p_name, params):
     valy = valData[:, -1]
 
     allClusters = generateClustersv2(np.column_stack((trainX, trainy)), params)
-    print("allClusters")
-    print(allClusters)
     bestClusters = clusteringPSO(allClusters, np.column_stack((valX, valy)), params)
     bestClusters = np.flatnonzero(bestClusters['chromosome'])
+    print("bestClusters: ",bestClusters)
     selectedClusters = [allClusters[i] for i in bestClusters]
 
     for c in selectedClusters:
@@ -53,7 +52,9 @@ def runTraining(p_name, params):
         all = trainClassifiers(X, y, valX, valy, params)
         classifiers.extend(all)
 
+    print("classifiers: ",classifiers)
     psoEnsemble = classifierSelectionPSO(classifiers, np.column_stack((valX, valy)))
+    print("psoEnsemble: ",psoEnsemble)
     psoEnsemble = np.flatnonzero(psoEnsemble['chromosome'])
     selectedClassifiers = [classifiers[i] for i in psoEnsemble]
 

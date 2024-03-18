@@ -36,6 +36,4 @@ def fusionPSO(classifiers, testData):
     for j in range(len(tempPredict)):
         decisionMatrix[:, j] = tempPredict[j]
     fusion = mode(decisionMatrix, axis=1)[0]
-    print("fusion: ")
-    print(fusion)
     return fusion
