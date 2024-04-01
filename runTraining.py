@@ -5,6 +5,7 @@ from clusteringPSO import clusteringPSO
 from trainClassifiers import trainClassifiers
 from classifierSelectionPSO import classifierSelectionPSO
 from fusion import fusion
+from sklearn.model_selection import train_test_split
 
 def runTraining(p_name, params):
     results = {}
@@ -12,6 +13,7 @@ def runTraining(p_name, params):
     optimized_Accuracy = []
     classifiers = []
 
+    '''
     #for f in range(1, params['numOfFolds'] + 1):
     # Load train data
     train_file_path = os.path.join('DTE', p_name, 'train.csv')
@@ -27,8 +29,6 @@ def runTraining(p_name, params):
     X_test = testdata[:, :-1]
     y_test = testdata[:, -1]
 
-    print("Data Loaded Successfully")
-
     ## SEPARATE VALIDATION DATA
     cvv = np.random.rand(len(trainData)) < 0.9
     valData = trainData[~cvv]
@@ -39,6 +39,22 @@ def runTraining(p_name, params):
 
     valX = valData[:, :-1]
     valy = valData[:, -1]
+    '''
+    ''''''
+    file_path = os.path.join('DTE', p_name, 'data.csv')
+    data = np.genfromtxt(file_path, delimiter=',', skip_header=1)  # Adjust delimiter if necessary
+
+    # Split the data into features (X) and labels (Y)
+    X = data[:, :-1]
+    Y = data[:, -1]
+
+    # Split the data into training and testing sets
+    X, X_test, Y, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)  # Adjust test_size if needed
+    # Further split the training data into training and validation sets
+    trainX, valX, trainy, valy = train_test_split(X, Y, test_size=0.25, random_state=42)  # Adjust test_size if needed
+    ''''''
+    
+    print("Data Loaded Successfully")
 
     allClusters = generateClustersv2(np.column_stack((trainX, trainy)), params)
     bestClusters = clusteringPSO(allClusters, np.column_stack((valX, valy)), params)

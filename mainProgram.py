@@ -23,26 +23,26 @@ def run_problem(p_name, params):
     saveResults(results)
 
 def mainProgram():
-    # problem = ['breast-cancer-wisconsin', 'diabetic_retinopathy', 'ecoli',
-    #            'haberman', 'ionosphere', 'iris', 'liver',
-    #            'pima_diabetec', 'segment2',
-    #            'sonar', 'thyroid', 'vehicle', 'wine']
-    problem = ['iris']
+    problem = ['breast-cancer-wisconsin', 'ecoli',
+               'haberman', 'ionosphere', 'iris', 'liver',
+               'pima_diabetec',
+               'sonar', 'wine']
+    #'diabetic_retinopathy', 'segment2', 'thyroid', 'vehicle'
 
     # Model SETTINGS
     params = {
         'numOfRuns': 1,
         'numOfFolds': 1,
-        'classifiers': ['KNN'], #, 'ANN', 'DT', 'DISCR', 'NB', 'SVM'],
-        'trainFunctionANN': ['trainlm'], #, 'trainbfg', 'trainrp', 'trainscg', 'traincgb', 'traincgf', 'traincgp', 'trainoss', 'traingdx'],
-        'trainFunctionDiscriminant': ['pseudoLinear'], #, 'pseudoQuadratic'],
-        'kernelFunctionSVM': ['gaussian'], #, 'polynomial', 'linear']
+        'classifiers': ['KNN', 'ANN', 'DT', 'DISCR', 'NB', 'SVM'],
+        'trainFunctionANN': ['trainlm', 'trainbfg', 'trainrp', 'trainscg', 'traincgb', 'traincgf', 'traincgp', 'trainoss', 'traingdx'],
+        'trainFunctionDiscriminant': ['pseudoLinear', 'pseudoQuadratic'],
+        'kernelFunctionSVM': ['gaussian', 'polynomial', 'linear']
     }
 
     #with Pool(os.cpu_count()) as pool:
     #    pool.map(partial(run_problem, params=params), problem)
-
-    run_problem('breast-cancer', params)
+    for p_name in problem:
+        run_problem(p_name, params)
 
 if __name__ == "__main__":
     mainProgram()
